@@ -1,3 +1,20 @@
+"""
+    MarcenkoPastur()
+The Marcenko Pastur Distrbitution (sometimes called the Marchenko-Pastur 
+Distribution or Law) has a probability distribution
+
+'''math
+f(x) = \frac{√{β(ϱ) - x)(x - α(ϱ))}}{2πx} 1_{[α(ϱ),β(ϱ)]}(x)
+'''
+where 1_{[a,b]}(x) is the indicator function that returns 1 if x exists in
+[a,b] and returns 0 otherwise
+
+External Links
+
+* https://en.wikipedia.org/wiki/Marchenko%E2%80%93Pastur_distribution
+
+"""
+
 using Statistics
 using Distributions
 import Distributions: @check_args
@@ -25,16 +42,19 @@ function convert(::Type{MarcenkoPastur{T}},d::MarcenkoPastur{S}) where {T <: Rea
     MarcenkoPastur(T(d.ρ),check_args=false)
 end
 
+α(ρ) = (1-√ρ)^2
+β(ρ) = (1+√ρ)^2
+
 ### Parameters
-leftbound(d::MarcenkoPastur) = (1-√d.ρ)^2
-rightbound(d::MarcenkoPastur) = (1+√d.ρ)^2
+leftbound(d::MarcenkoPastur) = α(d.ρ)
+rightbound(d::MarcenkoPastur) = β(d.ρ)
 params(d::MarcenkoPastur) = (d.ρ)
 
 ### Statistics
 mean(d::MarcenkoPastur) = d.ρ
 # TODO
 # median(d::MarcenkoPastur)
-# mode(d::MarcenkoPastur) = 2*leftbound(d)*rightbound(d)/(leftbound(d)+rightbound(d))
+# mode(d::MarcenkoPastur) = 2*α(d.ρ)*β(d.ρ)/(α(d.ρ)+β(d.ρ))
 # var(d::MarcenkoPastur)
 
 # TODO : make a separate file for functions such as 1(x)
@@ -51,8 +71,6 @@ mean(d::MarcenkoPastur) = d.ρ
 #    end
 #end
 
-α(ρ) = (1-√ρ)^2
-β(ρ) = (1+√ρ)^2
 function pdf(d::MarcenkoPastur, x::Real)
     if ρ < 1
         return pdf(d, d.ρ*x)
