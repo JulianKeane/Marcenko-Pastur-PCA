@@ -52,27 +52,13 @@ params(d::MarcenkoPastur) = (d.ρ)
 
 ### Statistics
 mean(d::MarcenkoPastur) = d.ρ
+mode(d::MarcenkoPastur) = 2*α(d.ρ)*β(d.ρ)/(α(d.ρ)+β(d.ρ))
 # TODO
 # median(d::MarcenkoPastur)
-# mode(d::MarcenkoPastur) = 2*α(d.ρ)*β(d.ρ)/(α(d.ρ)+β(d.ρ))
 # var(d::MarcenkoPastur)
-
-# TODO : make a separate file for functions such as 1(x)
-# Indicator function 1(x)
-# Parameters
-#   x::Real     Real number of which we are evaluating 1(x) at
-#   a::Real     Lower bound of our set
-#   b::Real     Upper bound of our set
-#function indicator(x::Real, a::Real, b::Real)
-#    if a <= x <= b
-#        return 1
-#    else
-#        return 0
-#    end
-#end
 
 function pdf(d::MarcenkoPastur, x::Real)
     if ρ < 1
         return pdf(d, d.ρ*x)
-    √((β(d.ρ)-x)*(x-α(d.ρ)))/(2π*x)*indicator(x, α(d.ρ), β(d.ρ))
+    √((β(d.ρ)-x)*(x-α(d.ρ)))/(2π*x)
 end
