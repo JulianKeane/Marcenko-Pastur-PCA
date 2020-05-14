@@ -59,9 +59,18 @@ mode(d::MarcenkoPastur) = 2*α(d.ρ)*β(d.ρ)/(α(d.ρ)+β(d.ρ))
 # in terms of the other
 # var(d::MarcenkoPastur) = 
 # std(d::MarcenkoPastur) = 
+#
+# skewness(d::MarcenkoPastur)
+# kurtosis(d::MarcenkoPastur)
+#
+# entropy(d::MarcenkoPastur)
 
 function pdf(d::MarcenkoPastur, x::Real)
     if ρ < 1
         return pdf(d, d.ρ*x)
     √((β(d.ρ)-x)*(x-α(d.ρ)))/(2π*x)
+end
+
+function logpdf(d::MarcenkoPastur, x::Real)
+    0.5*(log(β(d.ρ)-x)+log(x-α(d.ρ))) - log(2π*x)
 end
