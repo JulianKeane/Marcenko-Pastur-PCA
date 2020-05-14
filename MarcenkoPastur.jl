@@ -55,7 +55,10 @@ mean(d::MarcenkoPastur) = d.ρ
 mode(d::MarcenkoPastur) = 2*α(d.ρ)*β(d.ρ)/(α(d.ρ)+β(d.ρ))
 # TODO
 # median(d::MarcenkoPastur)
-# var(d::MarcenkoPastur)
+# TODO gather analytic form for each and use to determine which one should be
+# in terms of the other
+# var(d::MarcenkoPastur) = 
+# std(d::MarcenkoPastur) = 
 
 function pdf(d::MarcenkoPastur, x::Real)
     if ρ < 1
