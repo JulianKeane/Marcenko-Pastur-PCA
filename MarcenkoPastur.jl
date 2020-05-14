@@ -74,3 +74,16 @@ end
 function logpdf(d::MarcenkoPastur, x::Real)
     0.5*(log(β(d.ρ)-x)+log(x-α(d.ρ))) - log(2π*x)
 end
+
+# TODO
+# function cdf(d::MarcenkoPastur)
+#     
+# end
+#
+# function quantile(d::MarcenkoPastur)
+#
+# end
+#
+# function cquantile(d::MarcenkoPastur)
+#
+# end
